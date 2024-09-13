@@ -40,6 +40,13 @@ namespace API.Controllers
             return Ok(contato);
         }
 
+        [HttpGet("ObterPorNome")]
+        public IActionResult ObterPorNome(string nome)
+        {
+            var contatos = _context.Contatos.Where(x => x.Nome.Contains(nome));
+            return Ok(contatos);
+        }
+
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id, Contato contato)
         {
@@ -47,6 +54,7 @@ namespace API.Controllers
 
             if(contatoBanco == null)
                 return NotFound();
+
             contatoBanco.Nome = contato.Nome;
             contatoBanco.Telefone = contato.Telefone;
             contatoBanco.Ativo = contato.Ativo;
